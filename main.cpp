@@ -1,27 +1,25 @@
-#include <iostream>
+#include "hcce.h"
+#include "secondstorey.h"
+#include "thirdstorey.h"
+#include "variables.h"
+#include <QApplication>
 
-using namespace std;
-
-int main()
+int main(int argc, char *argv[])
 {
-    double bvcs=0.00167;
-    double vwall[3];
-    vwall[0]=1;
-    double vbrk=0.00157;
-    int nbrick[3];
-    nbrick[0]=(vwall[0]/bvcs);
-    int bprice=5.5;
-    double cemvol=0.0347;
-    double ppc=410;
-    double sndvol=7.50396;
-    double brick;
-    brick=nbrick[0]*bprice;
-    double vcs;
-    vcs=nbrick[0]*(bvcs-vbrk);
-    double vcem=vcs/7;
-    double vsnd=(6*vcs)/7;
-    double cost;
-    cost=brick+((vcem/cemvol)*ppc)+((vsnd/sndvol)*2251);
-    cout<<cost;
-    return 0;
+    QApplication a(argc, argv);
+    HCCE w;
+    w.show();
+    //Database connection call
+    QSqlDatabase db = w.connect();
+    w.loadPriceandVol(db);
+    if(db.open()){
+         qDebug()<<"Database Connected";
+    }
+    else {
+        qDebug()<<"Connection to database failed";
+    }
+    qDebug()<<b1p<<brick_vol<<upvc<<bvcs<<username;
+    w.closeConnection(db);
+    //database connection closed
+    return a.exec();
 }
